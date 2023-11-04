@@ -1,0 +1,5 @@
+../Drivers/CMSIS/Include/core_cm3.h:1639:22:__NVIC_SetPriority	16	static
+../Drivers/CMSIS/Include/core_cm3.h:1834:26:SysTick_Config	16	static
+../Core/Src/private.c:27:6:Q_onAssert	16	static
+../Core/Src/private.c:34:6:OS_onStartup	8	static
+../Core/Src/private.c:44:6:OS_onIdle	4	static,ignoring_inline_asm

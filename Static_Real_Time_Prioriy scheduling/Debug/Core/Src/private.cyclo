@@ -1,0 +1,5 @@
+../Drivers/CMSIS/Include/core_cm3.h:1639:22:__NVIC_SetPriority	2
+../Drivers/CMSIS/Include/core_cm3.h:1834:26:SysTick_Config	2
+../Core/Src/private.c:27:6:Q_onAssert	1
+../Core/Src/private.c:34:6:OS_onStartup	1
+../Core/Src/private.c:44:6:OS_onIdle	1
