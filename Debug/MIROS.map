@@ -2777,17 +2777,17 @@ LOAD C:/ST/STM32CubeIDE_1.13.2/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
  .debug_macro   0x00000000000157a2      0x1ef ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.o
  .debug_macro   0x0000000000015991      0x196 ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.o
 
-.debug_line     0x0000000000000000     0x52b6
- .debug_line    0x0000000000000000      0x90b ./Core/Src/MIROS.o
- .debug_line    0x000000000000090b      0x7a8 ./Core/Src/main.o
- .debug_line    0x00000000000010b3      0x6b4 ./Core/Src/stm32f1xx_hal_msp.o
- .debug_line    0x0000000000001767      0x79f ./Core/Src/stm32f1xx_it.o
- .debug_line    0x0000000000001f06      0x732 ./Core/Src/system_stm32f1xx.o
- .debug_line    0x0000000000002638       0x78 ./Core/Startup/startup_stm32f103c8tx.o
- .debug_line    0x00000000000026b0      0x95f ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o
- .debug_line    0x000000000000300f      0xb47 ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.o
- .debug_line    0x0000000000003b56      0x9f8 ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.o
- .debug_line    0x000000000000454e      0xd68 ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.o
+.debug_line     0x0000000000000000     0x52b2
+ .debug_line    0x0000000000000000      0x907 ./Core/Src/MIROS.o
+ .debug_line    0x0000000000000907      0x7a8 ./Core/Src/main.o
+ .debug_line    0x00000000000010af      0x6b4 ./Core/Src/stm32f1xx_hal_msp.o
+ .debug_line    0x0000000000001763      0x79f ./Core/Src/stm32f1xx_it.o
+ .debug_line    0x0000000000001f02      0x732 ./Core/Src/system_stm32f1xx.o
+ .debug_line    0x0000000000002634       0x78 ./Core/Startup/startup_stm32f103c8tx.o
+ .debug_line    0x00000000000026ac      0x95f ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o
+ .debug_line    0x000000000000300b      0xb47 ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.o
+ .debug_line    0x0000000000003b52      0x9f8 ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.o
+ .debug_line    0x000000000000454a      0xd68 ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.o
 
 .debug_str      0x0000000000000000    0x7c006
  .debug_str     0x0000000000000000    0x7b0d0 ./Core/Src/MIROS.o
