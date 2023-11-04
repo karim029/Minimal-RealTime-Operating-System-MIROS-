@@ -4,7 +4,7 @@
  * MIROS is a compact and efficient real-time operating system designed for resource-constrained embedded systems. It provides a cooperative multitasking environment for managing multiple threads, scheduling, and synchronization.
  *
  * Author: Karim Tarek
- * Version: 1.0
+ * Version: 1.1
  * Created on: October 22, 2023
  *
  * MIROS.c

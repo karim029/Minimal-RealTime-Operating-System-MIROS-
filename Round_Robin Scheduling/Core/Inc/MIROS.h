@@ -10,7 +10,7 @@
  * scheduling, and synchronization.
  *
  * Author: Karim Tarek
- * Version: 1.0
+ * Version: 1.1
  * Created on: October 22, 2023
  *
  * MIROS.h
