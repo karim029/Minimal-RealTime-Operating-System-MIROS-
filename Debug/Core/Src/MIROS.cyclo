@@ -1,0 +1,7 @@
+../Drivers/CMSIS/Include/core_cm3.h:1511:22:__NVIC_EnableIRQ	2
+../Drivers/CMSIS/Include/core_cm3.h:1639:22:__NVIC_SetPriority	2
+../Core/Src/MIROS.c:22:6:OS_init	1
+../Core/Src/MIROS.c:33:6:OS_sched	3
+../Core/Src/MIROS.c:50:6:OS_run	1
+../Core/Src/MIROS.c:64:6:OSThread_start	3
+../Core/Src/MIROS.c:121:6:PendSV_Handler	1
