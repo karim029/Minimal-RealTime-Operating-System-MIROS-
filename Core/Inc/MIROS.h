@@ -12,7 +12,7 @@
 typedef struct{
 
 	void* sp; /* stack pointer */
-
+	uint32_t timeout; /* timeout delay down-counter */
 }OSThread;
 
 typedef void (*OSThreadHandler)(void);
@@ -21,7 +21,11 @@ typedef void (*OSThreadHandler)(void);
 /* notice ! this function must be called with interrupts DISABLED */
 void OS_sched(void);
 
-void OS_init(void);
+void OS_init(void *stkSto, uint32_t stkSize);
+
+/* callback to handle the idle condition */
+void OS_onIdle(void);
+
 
 /*
  *  OSThread *me a pointer to the TCB

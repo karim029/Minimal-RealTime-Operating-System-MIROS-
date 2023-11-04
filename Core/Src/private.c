@@ -27,3 +27,9 @@ void OS_onStartup(void){
 	NVIC_SetPriority(SysTick_IRQn,0U);
 
 }
+
+
+void OS_onIdle(void){
+
+
+}

@@ -18,8 +18,23 @@ OSThread *volatile OS_next;    /* pointer to the next thread to run */
 OSThread *OS_thread[32+1]; /* array of threads */
 uint8_t OS_threadNum; /* number of threads started so far */
 uint8_t OS_currIdx; /* current thread index for round robin */
+uint32_t OS_readySet; /* bitmak of threads that are ready to run */
 
-void OS_init(void){
+/* The Idle thread */
+
+OSThread idleThread;
+
+void main_idleThread(){
+
+	while(1){
+
+		OS_onIdle();
+	}
+
+}
+
+
+void OS_init(void *stkSto, uint32_t stkSize){
 
 	/* set the PendSV interrupt priority to the lowest level */
 	*(uint32_t volatile*)0XE000ED20 |= (0xFFU << 16);
@@ -27,15 +42,28 @@ void OS_init(void){
 	NVIC_SetPriority(SysTick_IRQn,0U);
 	NVIC_EnableIRQ(SysTick_IRQn);
 
+
+	/* start idle Thread */
+	OSThread_start(&idleThread,&main_idleThread,stkSto, stkSize);
+
+
 }
 
 
 void OS_sched(void){
 	/* OS_next = ... */
-	// increment the index of the currently running thread
-	++OS_currIdx;
-	if(OS_currIdx == OS_threadNum){
-		OS_currIdx = 0U;
+	if(OS_readySet == 0U){ /* idle condition */
+		OS_currIdx = 0U;  /* index of the idle thread  */
+	}
+	else{
+		do{
+			++OS_currIdx;
+			if(OS_currIdx == OS_threadNum){
+			OS_currIdx = 1U; /* skip the idle thread */
+			}
+
+		}while((OS_readySet & (1 << (OS_currIdx - 1U))) == 0U);
+
 	}
 	OS_next = OS_thread[OS_currIdx];
 
@@ -60,6 +88,38 @@ void OS_run(void){
 	Q_ERROR();
 }
 
+// function will be called from isr (systick handler)
+// no need to disable irq because the ISR cannot be preempted by a thread
+void OS_tick(void){
+
+	uint8_t n;
+	for(n = 1U; n< OS_threadNum; n++){
+		if(OS_thread[n]->timeout != 0U){ // if timeout is not zero decrement it
+			--OS_thread[n]->timeout;
+			if(OS_thread[n]->timeout == 0U){ //if timeout is equal to zero
+				OS_readySet |= (1U << (n - 1U)); // set the corresponding bit in the mask to 1 to make the thread ready to run
+			}
+
+		}
+
+	}
+}
+
+void OS_delay(uint32_t ticks){
+	// entering a critical section IRQ must be disabled
+	__disable_irq();
+
+	/* never call OS_delay from the idleThread */
+	Q_REQUIRE(OS_current != OS_thread[0]);
+
+	OS_current->timeout = ticks;
+	/* make the thread not ready to run by clearing its corresponding bit in the OS_ready_Set */
+	OS_readySet &= ~(1U << (OS_currIdx - 1U));
+	/* immediately switch the context away from the thread in order to become blocked */
+	OS_sched();
+	__enable_irq();
+
+}
 
 void OSThread_start(OSThread *me,
 		OSThreadHandler threadHandler,
@@ -109,6 +169,12 @@ void OSThread_start(OSThread *me,
 	Q_ASSERT(OS_threadNum < Q_DIM(OS_thread));
 		/* register the thread with the OS */
 		OS_thread[OS_threadNum] = me;
+
+		/* make the thread ready to run */
+		i(OS_threadNum > 0U){
+
+			OS_readySet |= (1U << (OS_threadNum - 1u));
+		}
 
 		/* increment the number of threads */
 		++OS_threadNum;

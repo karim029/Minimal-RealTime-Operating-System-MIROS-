@@ -1,7 +1,10 @@
 ../Drivers/CMSIS/Include/core_cm3.h:1511:22:__NVIC_EnableIRQ	16	static
 ../Drivers/CMSIS/Include/core_cm3.h:1639:22:__NVIC_SetPriority	16	static
-../Core/Src/MIROS.c:22:6:OS_init	8	static
-../Core/Src/MIROS.c:33:6:OS_sched	4	static
-../Core/Src/MIROS.c:50:6:OS_run	8	static,ignoring_inline_asm
-../Core/Src/MIROS.c:64:6:OSThread_start	32	static
-../Core/Src/MIROS.c:121:6:PendSV_Handler	4	static,ignoring_inline_asm
+../Core/Src/MIROS.c:27:6:main_idleThread	8	static
+../Core/Src/MIROS.c:37:6:OS_init	16	static
+../Core/Src/MIROS.c:53:6:OS_sched	4	static
+../Core/Src/MIROS.c:78:6:OS_run	8	static,ignoring_inline_asm
+../Core/Src/MIROS.c:92:6:OS_tick	16	static
+../Core/Src/MIROS.c:107:6:OS_delay	16	static,ignoring_inline_asm
+../Core/Src/MIROS.c:123:6:OSThread_start	32	static
+../Core/Src/MIROS.c:180:6:PendSV_Handler	4	static,ignoring_inline_asm
