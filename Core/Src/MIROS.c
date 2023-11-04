@@ -171,7 +171,7 @@ void OSThread_start(OSThread *me,
 		OS_thread[OS_threadNum] = me;
 
 		/* make the thread ready to run */
-		i(OS_threadNum > 0U){
+		if(OS_threadNum > 0U){
 
 			OS_readySet |= (1U << (OS_threadNum - 1u));
 		}

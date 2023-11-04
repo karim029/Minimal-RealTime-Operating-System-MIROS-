@@ -113,9 +113,9 @@ Discarded input sections
  .text.OS_run   0x0000000000000000       0x24 ./Core/Src/MIROS.o
  .text.OS_tick  0x0000000000000000       0x70 ./Core/Src/MIROS.o
  .text.OS_delay
-                0x0000000000000000       0x68 ./Core/Src/MIROS.o
+                0x0000000000000000       0x64 ./Core/Src/MIROS.o
  .text.OSThread_start
-                0x0000000000000000      0x14c ./Core/Src/MIROS.o
+                0x0000000000000000      0x16c ./Core/Src/MIROS.o
  .group         0x0000000000000000        0xc ./Core/Src/main.o
  .group         0x0000000000000000        0xc ./Core/Src/main.o
  .group         0x0000000000000000        0xc ./Core/Src/main.o
@@ -2777,17 +2777,17 @@ LOAD C:/ST/STM32CubeIDE_1.13.2/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
  .debug_macro   0x00000000000157a2      0x1ef ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.o
  .debug_macro   0x0000000000015991      0x196 ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.o
 
-.debug_line     0x0000000000000000     0x52aa
- .debug_line    0x0000000000000000      0x8ff ./Core/Src/MIROS.o
- .debug_line    0x00000000000008ff      0x7a8 ./Core/Src/main.o
- .debug_line    0x00000000000010a7      0x6b4 ./Core/Src/stm32f1xx_hal_msp.o
- .debug_line    0x000000000000175b      0x79f ./Core/Src/stm32f1xx_it.o
- .debug_line    0x0000000000001efa      0x732 ./Core/Src/system_stm32f1xx.o
- .debug_line    0x000000000000262c       0x78 ./Core/Startup/startup_stm32f103c8tx.o
- .debug_line    0x00000000000026a4      0x95f ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o
- .debug_line    0x0000000000003003      0xb47 ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.o
- .debug_line    0x0000000000003b4a      0x9f8 ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.o
- .debug_line    0x0000000000004542      0xd68 ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.o
+.debug_line     0x0000000000000000     0x52b6
+ .debug_line    0x0000000000000000      0x90b ./Core/Src/MIROS.o
+ .debug_line    0x000000000000090b      0x7a8 ./Core/Src/main.o
+ .debug_line    0x00000000000010b3      0x6b4 ./Core/Src/stm32f1xx_hal_msp.o
+ .debug_line    0x0000000000001767      0x79f ./Core/Src/stm32f1xx_it.o
+ .debug_line    0x0000000000001f06      0x732 ./Core/Src/system_stm32f1xx.o
+ .debug_line    0x0000000000002638       0x78 ./Core/Startup/startup_stm32f103c8tx.o
+ .debug_line    0x00000000000026b0      0x95f ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o
+ .debug_line    0x000000000000300f      0xb47 ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.o
+ .debug_line    0x0000000000003b56      0x9f8 ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.o
+ .debug_line    0x000000000000454e      0xd68 ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.o
 
 .debug_str      0x0000000000000000    0x7c006
  .debug_str     0x0000000000000000    0x7b0d0 ./Core/Src/MIROS.o
