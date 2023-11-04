@@ -1,10 +1,21 @@
 /*
- * MIROS.h
+ * MIROS - Minimal Real-Time Operating System
  *
- *  Created on: Oct 22, 2023
- *      Author: karim
+ * MIROS is a compact and efficient real-time operating system
+ *
+ * designed for resource-constrained embedded systems.
+ *
+ * It provides a cooperative multitasking environment for managing multiple threads,
+ *
+ * scheduling, and synchronization.
+ *
+ * Author: Karim Tarek
+ * Version: 1.0
+ * Created on: October 22, 2023
+ *
+ * MIROS.h
+ * Header file for MIROS
  */
-
 #ifndef INC_MIROS_H_
 #define INC_MIROS_H_
 
@@ -39,6 +50,12 @@ void OSThread_start(OSThread *me,
 
 /* transfer control to the RTOS to run the threads */
 void OS_run(void);
+
+/* blocking delay  */
+void OS_delay(uint32_t ticks);
+
+/* process  timeouts */
+void OS_tick(void);
 
 /* callback to configure and start interrupts */
 void OS_onStartup(void);
