@@ -31,9 +31,8 @@ OSThread *volatile OS_current; /* pointer to the current thread */
 OSThread *volatile OS_next;    /* pointer to the next thread to run */
 
 OSThread *OS_thread[32+1]; /* array of threads */
-uint8_t OS_threadNum; /* number of threads started so far */
-uint8_t OS_currIdx; /* current thread index for round robin */
 uint32_t OS_readySet; /* bitmak of threads that are ready to run */
+uint32_t OS_delayedSet; /* bitmak of threads that are delayed */
 
 #define LOG2(x) (32 - __CLZ(x))
 
@@ -70,19 +69,13 @@ void OS_init(void *stkSto, uint32_t stkSize){
 void OS_sched(void){
 	/* OS_next = ... */
 	if(OS_readySet == 0U){ /* idle condition */
-		OS_currIdx = 0U;  /* index of the idle thread  */
+		OS_next = OS_thread[0];  /* the idle thread  */
 	}
 	else{
-		do{
-			++OS_currIdx;
-			if(OS_currIdx == OS_threadNum){
-			OS_currIdx = 1U; /* skip the idle thread */
-			}
-
-		}while((OS_readySet & (1 << (OS_currIdx - 1U))) == 0U);
-
+		// find the highest priority thread that is ready to run using the LOG2 macro
+		OS_next = OS_thread[LOG2(OS_readySet)];
+		Q_ASSERT(OS_next != (OSThread*)0);
 	}
-	OS_next = OS_thread[OS_currIdx];
 
 	if(OS_next != OS_current){
 		//trigger pendSV
@@ -109,20 +102,30 @@ void OS_run(void){
 // no need to disable irq because the ISR cannot be preempted by a thread
 void OS_tick(void){
 
-	uint8_t n;
-	for(n = 1U; n< OS_threadNum; n++){
-		if(OS_thread[n]->timeout != 0U){ // if timeout is not zero decrement it
-			--OS_thread[n]->timeout;
-			if(OS_thread[n]->timeout == 0U){ //if timeout is equal to zero
-				OS_readySet |= (1U << (n - 1U)); // set the corresponding bit in the mask to 1 to make the thread ready to run
-			}
+	uint32_t workingSet = OS_delayedSet;
 
+	while(workingSet != 0U){
+		OSThread* t = OS_thread[LOG2(workingSet)];
+		uint32_t bit;
+		Q_ASSERT((t != (OSThread*)0) && (t->timeout != 0U));
+
+
+		bit = (1U << (t->priority - 1U));
+		--t->timeout;
+		if(t->timeout == 0U){
+			OS_readySet |= bit; /* set the corresponding priority bit in readySet */
+			OS_delayedSet &= ~bit; /*remove the same bit from the bit mask because the corresponding thread is no longer delayed */
 		}
 
+		workingSet &= ~bit; /* remove the same priority bit from workingset bitmask because its now processing */
 	}
+
 }
 
 void OS_delay(uint32_t ticks){
+
+	uint32_t bit;
+
 	// entering a critical section IRQ must be disabled
 	__disable_irq();
 
@@ -130,8 +133,13 @@ void OS_delay(uint32_t ticks){
 	Q_REQUIRE(OS_current != OS_thread[0]);
 
 	OS_current->timeout = ticks;
+
+	bit = (1U << (OS_current->priority - 1U));
 	/* make the thread not ready to run by clearing its corresponding bit in the OS_ready_Set */
-	OS_readySet &= ~(1U << (OS_currIdx - 1U));
+	OS_readySet &= ~bit;
+	/* set the corresponding priorty bit of the thread inn the delayedset bitmask, because the thread is being delayed */
+	OS_delayedSet |= bit;
+
 	/* immediately switch the context away from the thread in order to become blocked */
 	OS_sched();
 	__enable_irq();
